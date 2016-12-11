@@ -3730,6 +3730,10 @@ defmodule Kernel do
       end
 
       defoverridable exception: 1
+
+      defimpl String.Chars, for: __MODULE__ do
+        def to_string(exception), do: Exception.format(:error, exception)
+      end
     end
   end
 

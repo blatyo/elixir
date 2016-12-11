@@ -97,6 +97,22 @@ defmodule String.Chars.URITest do
   end
 end
 
+defmodule String.Chars.ExceptionTest do
+  use ExUnit.Case, async: true
+
+  defmodule TestError do
+    defexception [:message]
+  end
+
+  test "exception" do
+    try do
+      raise TestError, "bar"
+    rescue error ->
+      assert String.Chars.to_string(error) =~ "** (String.Chars.ExceptionTest.TestError) foo"
+    end
+  end
+end
+
 defmodule String.Chars.ErrorsTest do
   use ExUnit.Case, async: true
 
